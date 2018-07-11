@@ -1,0 +1,24 @@
+﻿@using WebApiApplication.Models;
+
+@model EmailContentModel
+@{
+
+    string xmlContent = Model != null ? Model.XmlLikeContent : string.Empty;
+}
+
+<div class="jumbotron">
+    <h2>Email Text XML Extraction</h2>
+    <p class="lead">This application provides a means of extracting XML content from text recieved via email.  Enter the email text content here:</p>
+    @using (Html.BeginForm("ExtractEmailContent", "Home", FormMethod.Post))
+    {
+        <p style="color: red">
+            @Html.ValidationMessageFor(model => model.EmailContent)
+            @Html.ValidationMessage("Bad Request")
+        </p>
+        <p>
+            @Html.TextAreaFor(model => model.EmailContent, new { @rows = 15, @placeholder = "Enter Email Text Content Here" })
+            <textarea rows="15" readonly="readonly" placeholder="Extracted XML">@xmlContent</textarea>
+        </p>
+        <p><button type="submit" class="btn btn-primary btn-lg">Extract XML Content</button></p>
+    }
+</div>
